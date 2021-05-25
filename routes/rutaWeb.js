@@ -3,10 +3,13 @@ const router = express.Router();
 
 const qy = require('../database/mysqlConnect');
 
+router.get('/about', (req, res)=>{
+    res.sendFile('about.html', {root: `${__dirname}/../public`});
+});
 
 router.get('/inscripcion', (req, res)=>{
     res.sendFile('inscripcionForm.html', {root: `${__dirname}/../public`});
-})
+});
 
 router.post('/inscripcion', async(req, res, next)=>{
     try {
@@ -22,42 +25,42 @@ router.post('/inscripcion', async(req, res, next)=>{
 
         const addJugador = async(numero)=>{
             if(!data[`nombreJugador${numero}`]){
-                return
-            }
+                return;
+            };
             const jugador = {
                 nombre: data[`nombreJugador${numero}`],
                 email: data[`emailJugador${numero}`],
                 equipo_id
-            }
+            };
             
             query = 'INSERT INTO basquet_jugador SET ?'
             respuesta = await qy(query, [jugador]);
 
-        }
+        };
 
         for (let i = 0; i < 6; i++) {
             addJugador(i);
-        }
+        };
 
-        res.redirect('/equipos')
+        res.redirect('/equipos');
     } catch (err) {
         if(err.code === 'ER_DUP_ENTRY'){
-            const error = err
-            error.message = 'Error datos duplicados'
+            const error = err;
+            error.message = 'Error datos duplicados';
             error.status = 413;
         }
-        next(err)
+        next(err);
     }
 })
 
 router.get('/equipos', (req, res)=>{
     res.sendFile('listaEquipos.html', {root: `${__dirname}/../public`});
-})
+});
 
 router.get('/jugadores', (req, res)=>{
     res.sendFile('listaJugadores.html', {root: `${__dirname}/../public`});
-})
+});
 
-router.get('lista')
+router.get('lista');
 
 module.exports = router;

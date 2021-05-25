@@ -14,7 +14,7 @@
     <img class="img-bg3 img3" src="img/fondomobil.png" alt="">
     <header class="header-jugadores">
         <nav>
-            <ul class="flex nav-flex">
+            <ul class="flex">
                 <li><a class="links" href="/inscripcion">inscripcion</a></li>
                 <li><a class="links" href="/equipos">lista equipos</a></li>
                 <li><a class="links" href="/jugadores">jugadores</a></li>
@@ -23,29 +23,26 @@
         </nav>
     </header>
 
-    <div class="hero flex mb-20">
-        <h1 class="hero-titulo">jugadores</h1>
+    <div class="container contain-about">
+        <h1>about</h1>
+        <p class="p-info">
+            Tp-API-REST
+        </p>
+        <p class="p-info">
+            crear una aplicación en Express que implementa una API REST
+            a la cual se puede acceder en:
+        </p>
+        <p class="p-info">
+            /api/equipos, /api/equipos/:id  
+        </p>
+        <p class="p-info">
+            /api/jugadores, /api/jugadores/:id
+        </p>
+        <p class="p-info">
+            cada uno con sus correspondientes: POST('/'), PUT(/:id), DELETE(/:id)
+        </p>
     </div>
-    <div class="listaJugadores">
-        <div class="equipo">
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th>nombre</th>
-                        <th>email</th>
-                        <th>equipo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
-            
-        </div>
-    </div>
-    <a id="about-btn" href="/about"><img src="img/info_black_24dp.svg" alt=""></a>
-    <script src="js/listaJugadores.js"></script>
+
+    <script src="js/inscripcion.js"></script>
 </body>
 </html>
