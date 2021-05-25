@@ -1,0 +1,443 @@
+:root{
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Raleway', sans-serif;
+}
+
+.img-bg{
+  min-height: 100%;
+
+  width: 100%;
+  height: auto;
+	
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.img-bg3{
+ min-height: 110%;
+   
+ width: 100%;
+ height: auto;
+
+ position: fixed;
+ top: -20px;
+ left: 0;
+ z-index: -1;
+}
+
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+ul{
+    list-style: none;
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header, .container{
+    max-width: 1100px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+    .logo img{
+        width: 100px;
+    }
+    .logo-titulo{
+        font-family: 'Orbitron', sans-serif;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+        font-size: 2.5rem;
+    }
+
+    .nav-flex{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+ 
+    header .links{
+        font-size: 1.3rem;
+        margin-left: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: rgb(233, 22, 43);
+        text-shadow: 0 0 5px #000;
+        text-align: right;
+    }
+    header .links:hover{
+        color: #fff;
+    }
+    
+    header{
+        margin-top: 20px;
+        margin-bottom: 320px;
+    }
+
+
+
+/*hero*/
+.info{
+    width: 100%;
+    letter-spacing: 2px;
+    font-weight: 300;
+    font-size: .85rem;
+    line-height: 1.1;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.356);
+    height: 30vh;
+    padding: 20px;
+}
+    .info .texto{
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .container h1{
+        color: #fff;
+        font-size: 7rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 120px;
+    }
+
+.inscripcion{
+    max-width: 1100px;
+    padding: 30px;
+    margin: 0 auto;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .inscripcion a{
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        font-size: 1.7rem;
+        padding: 10px 18px;
+        background-color: rgba(255, 255, 255, 0.212);
+    }
+
+.mb-20{
+    margin-bottom: 20px;
+}
+.mb-50{
+    margin-bottom: 50px;
+}
+.mb-10{
+    margin-bottom: 10px;
+}
+/*-----------inscripcion------------*/
+form{
+  color: #ECF0F1;
+  font-size: 1.2rem;
+}
+
+form p{
+    font-size: 1.8rem;
+    margin: 20px 0 10px 0;
+}
+
+form input{
+    padding: 6px;
+    font-size: 1.1rem;
+    margin: 5px;
+}
+
+#listaInput{
+    margin: 0 auto;
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+
+#listaInput > li{
+    margin-bottom: 20px;
+}
+
+form button, [type="submit"]{
+    cursor: pointer;
+    color: #ffffff;
+    margin: 5px;
+    border: 2px solid #ffffff;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    background-color: rgba(255, 255, 255, 0.212);
+}
+/*-------------- lista equipos --------------*/
+
+.header-equipos{
+    margin-bottom: 100px;
+}
+
+.header-equipos ul{
+    justify-content: flex-end;
+}
+
+.container-equipos{
+    margin-top: -20px;
+    padding: 20px;
+    height: 102vh;
+    background-color: rgba(165, 165, 165, 0.027);
+}
+
+.hero-titulo{
+    color: #ECF0F1;
+    font-size: 5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.lista{
+    display: flex;  
+    justify-content: space-around;
+    align-items: flex-start;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 10px;
+
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.377);
+}
+
+.lista p{
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+#equipos button{
+    cursor: pointer;
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+    padding: 5px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+#jugadores h2{
+    font-size: 3rem;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+#jugadores li{
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 300;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+}
+
+/*------- lista jugadores ----------------*/
+.header-jugadores{
+    margin-bottom: 100px;
+}
+
+
+table{
+    max-width: 700px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 1.1rem;
+    font-weight: 300;
+    display: table;
+    margin-bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.109);
+    border-radius: 10px;
+}
+table > tr {
+    vertical-align: middle;
+}
+tbody tr:nth-child(even){
+    background:#ECF0F1;
+}
+tbody tr:nth-child(odd){
+    color:#ECF0F1;
+}
+
+tr {
+    cursor: default;
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit
+}
+    tbody tr:hover{
+        background-color: #949494;
+        color: #fff;
+    }
+
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+h1{
+    font-style: italic;
+    font-weight: 900;
+}
+
+.img2, .img3{
+    display: none;
+}
+
+@media screen and (max-width: 1024px) { /* Specific to this particular image */
+    img.bg {
+      left: 50%;
+      margin-left: -512px;   /* 50% */
+    }
+
+}
+
+@media screen and (max-width: 1200px) {
+    .img1,.img3{
+        display: none;
+    }
+    .img2{
+        display: block;
+    }
+}
+
+
+@media screen and (max-width: 1000px) {
+    :root{
+        font-size: 12px;
+    }
+    .info{
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .img1,.img2{
+        display: none;
+    }
+    .img3{
+        display: block;
+    }
+
+
+    .container h1{
+        font-size: 7rem;
+        margin-bottom: 80px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    header{
+        margin-top: 20px;
+        margin-bottom: 230px;
+    }
+
+    #formulario input{
+        font-size: 1.2rem;
+    }
+
+}
+
+@media screen and (max-width: 550px) {
+    :root{
+        font-size: 11px;
+    }
+
+    header{
+        margin-top: 20px;
+        margin-bottom: 150px;
+        padding: 10px 5px;
+    }
+        header .links{
+            margin-left: 0;
+            padding: 8px;
+        }
+
+    .nav-flex{
+        justify-content: center;
+    }
+
+    .container h1{
+        font-size: 6rem;
+    }
+
+    .inscripcion a{
+        padding: 8px 10px;
+    }
+
+    /* ------- equipos -------- */
+
+    .header-equipos{
+        margin-bottom: 60px;
+    }
+    .header-equipos ul{
+        flex-wrap: wrap;
+    }
+    .header-equipos ul > *{
+        margin-bottom: 10px;
+    }
+
+
+    .container-equipos{
+        padding: 5px;
+    }
+    .container-equipos .lista{
+        padding: 30px 5px;
+    }
+
+    #equipos button{
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+        padding: 0;
+    }
+
+    #jugadores p{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #jugadores h2{
+        font-size: 2rem;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    #equipos, #jugadores{
+        padding: 10px;
+        flex: 2;
+    }
+
+    /*--------- jugadores ---------*/
+    .header-jugadores{
+        margin-bottom: 50px;
+    }
+    .header-jugadores ul{
+        flex-wrap: wrap;
+    }
+    .header-jugadores ul > *{
+        margin-bottom: 10px;
+    }
+
+}

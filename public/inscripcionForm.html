@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo Basquet</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img class="img-bg" src="img/fondo.png" alt="">
+    <img class="img-bg3 img3" src="img/fondomobil.png" alt="">
+    <header class="header-jugadores">
+        <nav>
+            <ul class="flex">
+                <li><a class="links" href="/inscripcion">inscripcion</a></li>
+                <li><a class="links" href="/equipos">lista equipos</a></li>
+                <li><a class="links" href="/jugadores">jugadores</a></li>
+                <li><a class="links" href="/">home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form action="/inscripcion" method="post" id="formulario">
+            <label for="nombreEquipo">Nombre del equipo</label>
+            <input type="text" name="nombreEquipo" id="nombreEquipo" placeholder="Nombre Equipo">
+
+            <p>inscripcion jugadores</p>
+            
+            <ol id="listaInput">
+                <li>
+                    <!-- <label for="nombreJugador">Nombre</label> -->
+                    <input type="text" name="nombreJugador1" id="nombreJugador" placeholder="Nombre">
+                    <!-- <label for="emailJugador">Email</label> -->
+                    <input type="email" name="emailJugador1" id="emailJugador" placeholder="Email">
+                </li>
+                <li>
+                    <!-- <label for="nombreJugador">Nombre</label> -->
+                    <input type="text" name="nombreJugador2" id="nombreJugador" placeholder="Nombre">
+                    <!-- <label for="emailJugador">Email</label> -->
+                    <input type="email" name="emailJugador2" id="emailJugador" placeholder="Email">
+                </li>
+                <li>
+                    <!-- <label for="nombreJugador">Nombre</label> -->
+                    <input type="text" name="nombreJugador3" id="nombreJugador" placeholder="Nombre">
+                    <!-- <label for="emailJugador">Email</label> -->
+                    <input type="email" name="emailJugador3" id="emailJugador" placeholder="Email">
+                </li>
+            </ol>
+            
+            <button id="addJugador">Agregar Jugador</button>
+            
+            <input type="submit" value="enviar">
+        </form>
+    </div>
+
+    <div class="errores">
+        <ul>
+            
+        </ul>
+    </div>
+
+    <script src="js/inscripcion.js"></script>
+</body>
+</html>
