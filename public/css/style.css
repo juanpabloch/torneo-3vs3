@@ -340,6 +340,26 @@ h1{
         list-style: disc;
     }
 
+/*------------- about --------------*/
+.contain-about{
+    color: #ECF0F1;
+    font-size: 1.8rem;
+    background-color: rgba(0, 0, 0, 0.363);
+}
+    .contain-about p{
+        margin-bottom: 20px;
+    }
+
+    #about-btn{
+        position: fixed;
+        bottom: 4%;
+        left: 4%;
+    }
+    #about-btn img{
+        filter: invert();
+        width: 40px;
+    }
+
 @media screen and (max-width: 1024px) { /* Specific to this particular image */
     img.bg {
       left: 50%;
