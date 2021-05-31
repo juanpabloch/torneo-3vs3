@@ -1,20 +1,46 @@
 const express = require('express');
 const app = express();
-
 const port = process.env.PORT || 3000;
+
+const session = require('express-session');
+const MysqlStore = require('express-mysql-session')(session);
+
+const options={
+    host: 'us-cdbr-east-03.cleardb.com',
+    user: 'b1a7938b561099',
+    password: '6d357f5a',
+    database: 'heroku_e08c6defbbb5ac1'
+};
+
+const sessionStore = new MysqlStore(options);
 
 app.use(express.static(`${__dirname}/public`));
 
 app.use(express.urlencoded());
 app.use(express.json());
 
+app.use(session({
+    key: 'coockie torneo',
+    secret: 'session-3vs3-torneo',
+    resave: false,
+    saveUninitialized: false,
+    proxy: true,
+    cookie: {
+        maxAge: 86400000,
+        sameSite: true
+    },
+    store: sessionStore
+}))
+
 //rutas
 const equipoRuta = require('./routes/rutaEquipoApi');
 const jugadoresRuta = require('./routes/rutaJugadoresApi');
 const webRutas = require('./routes/rutaWeb');
 
-app.use('/api/equipos', equipoRuta);
-app.use('/api/jugadores', jugadoresRuta);
+const validaciones = require('./validacion/validaciones');
+
+app.use('/api/equipos', validaciones.validarUsuario, equipoRuta);
+app.use('/api/jugadores', validaciones.validarUsuario, jugadoresRuta);
 app.use('/', webRutas);
 
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneo Basquet | about</title>
+    <title>Torneo Basquet | login</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap" rel="stylesheet">
@@ -23,26 +23,24 @@
         </nav>
     </header>
 
-    <div class="container contain-about">
-        <h1>about</h1>
-        <p class="p-info">
-            Tp-API-REST
-        </p>
-        <p class="p-info">
-            crear una aplicación en Express que implementa una API REST
-            a la cual se puede acceder en:
-        </p>
-        <p class="p-info">
-            /api/equipos, /api/equipos/:id  
-        </p>
-        <p class="p-info">
-            /api/jugadores, /api/jugadores/:id
-        </p>
-        <p class="p-info">
-            cada uno con sus correspondientes: POST('/'), PUT(/:id), DELETE(/:id)
-        </p>
+    <div class="container">
+        <h1>login</h1>
+        <form action="/login" method="post" id="formulario-login">
+            <input type="text" name="userName" id="userName" placeholder="Nombre de usuario">
+            <input type="password" name="password" id="password" placeholder="password">
+            <div class="botones">
+                <input type="submit" value="Login">
+                <a href="/registrate">Registrate</a>
+            </div>
+        </form>
     </div>
 
-    <script src="js/inscripcion.js"></script>
+    <div class="errores">
+        <ul>
+            
+        </ul>
+    </div>
+
+    
 </body>
 </html>
