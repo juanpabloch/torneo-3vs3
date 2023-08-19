@@ -21,7 +21,6 @@ const getJugadores = async()=>{
     const respuesta = await fetch('api/jugadores/jugadorEquipo');
     if(respuesta.status === 200){
         const data = await respuesta.json()
-        console.log(data)
         renderJugadores(data)
     }
 }

@@ -34,7 +34,6 @@ $formulario.addEventListener('submit', async (e)=>{
 
         const jugadores = []
         for (let i = 0; i < 6; i++) {
-            // console.log(e.target[`nombreJugador${i+1}`].value)
             if (e.target[`nombreJugador${i+1}`] !== undefined && e.target[`nombreJugador${i+1}`].value !== '') {
                 jugadores.push({
                     nombre: e.target[`nombreJugador${i+1}`].value,

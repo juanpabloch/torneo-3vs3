@@ -50,7 +50,6 @@ const getEquipos = async(render)=>{
     const response = await fetch('/api/equipos/');
     if(response.status === 200){
         const data = await response.json()
-        console.log(data)
         render(data);
         accionBotones()
     }

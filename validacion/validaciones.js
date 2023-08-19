@@ -45,7 +45,6 @@ const validarUsuario = (req, res, next)=>{
 
     try {
         const decoded = jwt.verify(token, 'secret');
-        console.log(decoded)
         req.userId = decoded.userId;
       } catch (err) {
         return res.status(401).json({ message: 'Unauthorized' });

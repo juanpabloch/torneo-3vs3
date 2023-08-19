@@ -23,16 +23,16 @@ require('dotenv').config()
 
 
 const connection = new Pool({
-    // connectionString: process.env.POSTGRES_URL + "?sslmode=require",
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    host: process.env.MYSQL_HOST,
-    database: process.env.MYSQL_DATABSE
+    connectionString: process.env.POSTGRES_URL + "?sslmode=require",
+    // user: process.env.MYSQL_USER,
+    // password: process.env.MYSQL_PASSWORD,
+    // host: process.env.MYSQL_HOST,
+    // database: process.env.MYSQL_DATABSE
 })
 
 
 connection.connect((err)=>{
-    if(err)throw new Error('Error al conectar a la base de datos');
+    if(err)throw new Error(`Error al conectar a la base de datos: ${err}`);
     console.log('base de datos conectada')
 })
 
