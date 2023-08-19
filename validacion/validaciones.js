@@ -1,4 +1,5 @@
 const qy = require('../database/mysqlConnect');
+const jwt = require('jsonwebtoken');
 
 const validarRegistro = (req, res, next)=>{
 
@@ -22,14 +23,9 @@ const validarRegistro = (req, res, next)=>{
 const validarLogin = async(req, res, next)=>{
     const { userName, password} = req.body;
     try {
-        
-        let query = 'SELECT nombre FROM usuarios WHERE nombre = $1 AND password = $2';
-        let respuesta = await qy(query, [userName, password])
-        if(respuesta.length === 0)throw new Error('usuario/contraseña incorrecto');
-
-        req.session.user = userName;
-        req.session.auth = true;
-
+        if (/\W/.test(userName) || userName.length == 0){
+            throw new Error('Nombre de usuario o contraseña invalidos');
+        }
         next()
     } catch (err) {
         if(err.code === undefined){
@@ -42,13 +38,25 @@ const validarLogin = async(req, res, next)=>{
 
 
 const validarUsuario = (req, res, next)=>{
-    // if(!req.session.auth)return res.redirect('/login')
+    const token = req.cookies == undefined ? undefined : req.cookies.token
+    if (!token) {
+        return res.redirect('/login')
+    }
+
+    try {
+        const decoded = jwt.verify(token, 'secret');
+        console.log(decoded)
+        req.userId = decoded.userId;
+      } catch (err) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+
     next()
 }
 
 const validarUsuarioRegistro = (req, res, next)=>{
     // if(req.session.auth)
-    return res.redirect('/')
+    // return res.redirect('/')
     next()
 }
 
@@ -58,3 +66,8 @@ module.exports = {
     validarUsuario,
     validarUsuarioRegistro
 }
+
+
+/* 
+
+*/

@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
 const port = process.env.PORT || 3000;
 const cors = require('cors');
-require('dotenv').config()
 
+require('dotenv').config()
 // const session = require('express-session');
 // const MysqlStore = require('express-mysql-session')(session);
 
@@ -15,7 +16,7 @@ require('dotenv').config()
 // };
 
 // const sessionStore = new MysqlStore(options);
-
+app.use(cookieParser());
 app.use(cors({
     origin: '*'
 }));
