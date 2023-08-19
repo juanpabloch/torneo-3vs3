@@ -26,8 +26,7 @@ router.get('/', async(req, res, next)=>{
 
 router.get('/jugadorEquipo', async(req, res, next)=>{
     try {
-
-        const query = 'SELECT  basquet_jugador.nombre, basquet_jugador.email, basquet_equipo.nombre_equipo  FROM basquet_jugador INNER JOIN basquet_equipo ON basquet_jugador.equipo_id = basquet_equipo.id'
+        const query = 'SELECT basquet_jugador.nombre, basquet_jugador.email, basquet_equipo.nombre AS team FROM basquet_jugador INNER JOIN basquet_equipo ON basquet_equipo.id = basquet_jugador.equipo_id'
         const respuesta = await qy(query);
         res.json(respuesta.rows);
 
@@ -142,9 +141,14 @@ router.delete('/:id', async(req, res, next)=>{
 
 router.get('/:equipo_id/jugadores', async(req, res)=>{
     const {equipo_id} = req.params;
-    const query = 'SELECT * FROM basquet_jugador WHERE equipo_id = $1'
-    const jugadores = await qy(query, [equipo_id]);
-    res.json(jugadores);
+
+    let query = 'SELECT * FROM basquet_equipo WHERE id = $1';
+    let respuesta = await qy(query, [equipo_id]);
+    if(respuesta.rows.length === 0)throw new Error('Equipo no encontrado');
+
+    query = 'SELECT * FROM basquet_jugador WHERE equipo_id = $1'
+    respuesta = await qy(query, [equipo_id]);
+    res.json(respuesta.rows);
 })
 
 

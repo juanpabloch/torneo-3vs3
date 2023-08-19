@@ -10,7 +10,7 @@ const renderJugadores = async(lista)=>{
         <td>${numero}</td>
         <td>${jugador.nombre}</td>
         <td>${jugador.email}</td>
-        <td>${jugador.nombre_equipo}</td>
+        <td>${jugador.team}</td>
         `
         $tabla.appendChild(tr);
         numero++
