@@ -13,7 +13,7 @@ router.get('/', async(req, res, next)=>{
     try {
         const query = 'SELECT * FROM basquet_jugador';
         const respuesta = await qy(query);
-        res.status(200).json(respuesta)
+        res.status(200).json(respuesta.rows)
     } catch (err) {
         if(err.code === undefined){
             const error = err;
@@ -29,7 +29,7 @@ router.get('/jugadorEquipo', async(req, res, next)=>{
 
         const query = 'SELECT  basquet_jugador.nombre, basquet_jugador.email, basquet_equipo.nombre_equipo  FROM basquet_jugador INNER JOIN basquet_equipo ON basquet_jugador.equipo_id = basquet_equipo.id'
         const respuesta = await qy(query);
-        res.json(respuesta);
+        res.json(respuesta.rows);
 
     } catch (err) {
         console.log(err)
@@ -40,11 +40,11 @@ router.get('/jugadorEquipo', async(req, res, next)=>{
 router.get('/:id', async(req, res, next)=>{
     try {
         const { id } = req.params;
-        const query = 'SELECT * FROM basquet_jugador WHERE id = ?';
+        const query = 'SELECT * FROM basquet_jugador WHERE id = $1';
         const respuesta = await qy(query, [id]);
-        if(respuesta.length === 0)throw new Error('jugador no encontrado');
+        if(respuesta.rows.length === 0)throw new Error('jugador no encontrado');
 
-        res.status(200).json(respuesta)
+        res.status(200).json(respuesta.rows[0])
     } catch (err) {
         if(err.code === undefined){
             const error = err;
@@ -57,15 +57,15 @@ router.get('/:id', async(req, res, next)=>{
 
 router.post('/', async(req, res, next)=>{
     try {
-        const jugador = req.body;
-        let query = 'INSERT INTO basquet_jugador SET ?'
-        let respuesta = await qy(query, [jugador]);
-        const id = respuesta.insertId;
+        const {nombre, email, equipo_id}= req.body;
+        let query = 'INSERT INTO basquet_jugador(nombre, email, equipo_id) VALUES($1, $2, $3) RETURNING id'
+        let respuesta = await qy(query, [nombre, email, equipo_id]);
+        const id = respuesta.rows[0].id;
 
-        query = 'SELECT * FROM basquet_jugador WHERE id = ?'
+        query = 'SELECT * FROM basquet_jugador WHERE id = $1'
         respuesta = await qy(query, [id]);
 
-        res.status(200).json(respuesta);
+        res.status(200).json(respuesta.rows[0]);
 
     } catch (err) {
         if(err.code === undefined){
@@ -85,17 +85,19 @@ router.post('/', async(req, res, next)=>{
 router.put('/:id', async(req, res, next)=>{
     try {
         const {id} = req.params;
-        const jugador = req.body;
+        const {nombre} = req.body;
 
-        let query = 'UPDATE basquet_jugador SET ? WHERE id = ?'
-        let respuesta = await qy(query, [jugador, id]);
+        let query = 'SELECT * FROM basquet_jugador WHERE id = $1';
+        let respuesta = await qy(query, [id]);
+        if(respuesta.rows.length === 0)throw new Error('jugador no encontrado');
 
-        if(!respuesta.affectedRows)throw new Error('no existe ese jugador')
+        query = 'UPDATE basquet_jugador SET nombre=$1 WHERE id=$2'
+        respuesta = await qy(query, [nombre, id]);
 
-        query = 'SELECT * FROM basquet_jugador WHERE id = ?'
+        query = 'SELECT * FROM basquet_jugador WHERE id = $1'
         respuesta = await qy(query, [id]);
 
-        res.status(200).json(respuesta); 
+        res.status(200).json(respuesta.rows[0]); 
 
     } catch (err) {
         if(err.code === undefined){
@@ -116,10 +118,12 @@ router.put('/:id', async(req, res, next)=>{
 router.delete('/:id', async(req, res, next)=>{
     try {
         const {id} = req.params;
+        let query = 'SELECT * FROM basquet_jugador WHERE id = $1';
+        let respuesta = await qy(query, [id]);
+        if(respuesta.rows.length === 0)throw new Error('jugador no encontrado');
 
-        const query = 'DELETE FROM basquet_jugador WHERE id = ?'
-        const respuesta = await qy(query, [id]);
-        if(!respuesta.affectedRows)throw new Error('jugador no encontrado');
+        query = 'DELETE FROM basquet_jugador WHERE id = $1'
+        respuesta = await qy(query, [id]);
 
         res.status(200).json({
             mensaje: 'jugador borrado correctamente'
@@ -138,7 +142,7 @@ router.delete('/:id', async(req, res, next)=>{
 
 router.get('/:equipo_id/jugadores', async(req, res)=>{
     const {equipo_id} = req.params;
-    const query = 'SELECT * FROM basquet_jugador WHERE equipo_id = ?'
+    const query = 'SELECT * FROM basquet_jugador WHERE equipo_id = $1'
     const jugadores = await qy(query, [equipo_id]);
     res.json(jugadores);
 })

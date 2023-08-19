@@ -17,13 +17,14 @@ router.post('/inscripcion', async(req, res, next)=>{
     try {
         const data = req.body;
         
-        const nombreEquipo = {
-            nombre_equipo: data.nombreEquipo
-        }
+        // const nombreEquipo = {
+        //     nombre_equipo: data.nombreEquipo
+        // }
 
-        let query = 'INSERT INTO basquet_equipo SET ?'
-        let respuesta = await qy(query, [nombreEquipo]);
-        const equipo_id = respuesta.insertId
+        let query = 'INSERT INTO basquet_equipo(nombre) VALUES ($1)'
+        let respuesta = await qy(query, [data.nombreEquipo]);
+        console.log(respuesta)
+        const equipo_id = respuesta[0].id
 
         const addJugador = async(numero)=>{
             if(!data[`nombreJugador${numero}`]){
@@ -35,7 +36,7 @@ router.post('/inscripcion', async(req, res, next)=>{
                 equipo_id
             };
             
-            query = 'INSERT INTO basquet_jugador SET ?'
+            query = 'INSERT INTO basquet_jugador(nombre, email, equipo_id) VALUES($1, $2, $3)'
             respuesta = await qy(query, [jugador]);
 
         };
@@ -55,7 +56,7 @@ router.post('/inscripcion', async(req, res, next)=>{
     }
 })
 
-router.get('/equipos', validacion.validarUsuario, (req, res)=>{
+router.get('/equipos', (req, res)=>{
     res.sendFile('listaEquipos.html', {root: `${__dirname}/../public`});
 });
 
@@ -84,12 +85,11 @@ router.get('/registrate', validacion.validarUsuarioRegistro,(req, res)=>{
 router.post('/registrate', validacion.validarRegistro,async(req, res, next)=>{
     try {
         const { userName, password, password2 } = req.body;
-
-        let query = 'SELECT nombre FROM usuarios WHERE nombre = ?';
+        let query = 'SELECT nombre FROM usuarios WHERE nombre = $1';
         let respuesta = await qy(query, [userName]);
         if(respuesta.length)throw new Error('usuario ya existe');
 
-        query = 'INSERT INTO usuarios (nombre, password) VALUES (?, ?)'
+        query = 'INSERT INTO usuarios (nombre, password) VALUES ($1, $2)'
         respuesta = await qy(query, [userName, password]);
 
         res.redirect('/login');
@@ -104,14 +104,12 @@ router.post('/registrate', validacion.validarRegistro,async(req, res, next)=>{
 });
 
 router.get('/logout', (req, res, next)=>{
-    res.clearCookie('userName');
-    req.session.destroy((err)=>{
-        if(err){
-            next(err);
-        }
-        res.redirect('/');
-    });
+    // res.clearCookie('userName');
+    // req.session.destroy((err)=>{
+    //     if(err){
+    //         next(err);
+    //     }
+    res.redirect('/');
 });
-
 
 module.exports = router;

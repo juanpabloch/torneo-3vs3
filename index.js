@@ -4,35 +4,35 @@ const port = process.env.PORT || 3000;
 
 require('dotenv').config()
 
-const session = require('express-session');
-const MysqlStore = require('express-mysql-session')(session);
+// const session = require('express-session');
+// const MysqlStore = require('express-mysql-session')(session);
 
-const options={
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-};
+// const options={
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASS,
+//     database: process.env.DB_NAME
+// };
 
-const sessionStore = new MysqlStore(options);
+// const sessionStore = new MysqlStore(options);
 
 app.use(express.static(`${__dirname}/public`));
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.use(session({
-    key: 'coockie torneo',
-    secret: 'session-3vs3-torneo',
-    resave: false,
-    saveUninitialized: false,
-    proxy: true,
-    cookie: {
-        maxAge: 86400000,
-        sameSite: true
-    },
-    store: sessionStore
-}))
+// app.use(session({
+//     key: 'cookie torneo',
+//     secret: 'session-3vs3-torneo',
+//     resave: false,
+//     saveUninitialized: false,
+//     proxy: true,
+//     cookie: {
+//         maxAge: 86400000,
+//         sameSite: true
+//     },
+//     store: sessionStore
+// }))
 
 //rutas
 const equipoRuta = require('./routes/rutaEquipoApi');

@@ -38,9 +38,9 @@ const renderListaEquipos = (lista)=>{
         const button = document.createElement('button')
         const li = document.createElement('li');
         button.classList.add('btn');
-        button.textContent = equipo.nombre_equipo;
+        button.textContent = equipo.nombre;
         button.dataset.id = equipo.id;
-        button.dataset.equipo = equipo.nombre_equipo;
+        button.dataset.equipo = equipo.nombre;
         li.appendChild(button);
         $equipos.appendChild(li);
     });
@@ -50,6 +50,7 @@ const getEquipos = async(render)=>{
     const response = await fetch('/api/equipos/');
     if(response.status === 200){
         const data = await response.json()
+        console.log(data)
         render(data);
         accionBotones()
     }

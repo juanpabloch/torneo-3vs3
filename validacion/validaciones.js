@@ -23,7 +23,7 @@ const validarLogin = async(req, res, next)=>{
     const { userName, password} = req.body;
     try {
         
-        let query = 'SELECT nombre FROM usuarios WHERE nombre = ? AND password = ?';
+        let query = 'SELECT nombre FROM usuarios WHERE nombre = $1 AND password = $2';
         let respuesta = await qy(query, [userName, password])
         if(respuesta.length === 0)throw new Error('usuario/contraseña incorrecto');
 
@@ -42,14 +42,13 @@ const validarLogin = async(req, res, next)=>{
 
 
 const validarUsuario = (req, res, next)=>{
-    if(!req.session.auth)return res.redirect('/login')
-
+    // if(!req.session.auth)return res.redirect('/login')
     next()
 }
 
 const validarUsuarioRegistro = (req, res, next)=>{
-    if(req.session.auth)return res.redirect('/')
-
+    // if(req.session.auth)
+    return res.redirect('/')
     next()
 }
 

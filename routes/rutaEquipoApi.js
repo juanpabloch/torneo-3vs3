@@ -8,8 +8,7 @@ router.get('/', async(req, res, next)=>{
     try {
         const query = 'SELECT * FROM basquet_equipo';
         const respuesta = await qy(query);
-        res.json(respuesta);
-
+        res.json(respuesta.rows);
     } catch (err) {
         if(err.code === undefined){
             const error = err;
@@ -23,10 +22,10 @@ router.get('/', async(req, res, next)=>{
 router.get('/:id', async(req, res, next)=>{
     try {
         const { id } = req.params;
-        const query = 'SELECT * FROM basquet_equipo WHERE id = ?';
+        const query = 'SELECT * FROM basquet_equipo WHERE id = $1';
         const respuesta = await qy(query, [id]);
-        if(respuesta.length === 0)throw new Error('Equipo no encontrado');
-        res.status(200).json(respuesta);
+        if(respuesta.rows.length === 0)throw new Error('Equipo no encontrado');
+        res.status(200).json(respuesta.rows[0]);
 
     } catch (err) {
         if(err.code === undefined){
@@ -41,18 +40,17 @@ router.get('/:id', async(req, res, next)=>{
 
 router.post('/', async(req, res, next)=>{
     try {
-        const nombre = req.body;
+        const {nombre} = req.body;
         if(!nombre)throw new Error('nombre de equipo no debe quedar vacio')
 
-        let query = 'INSERT INTO basquet_equipo SET ?'
+        let query = 'INSERT INTO basquet_equipo(nombre) VALUES ($1) RETURNING id'
         let respuesta = await qy(query, [nombre]);
+        const id = respuesta.rows[0].id;
 
-        const id = respuesta.insertId;
-
-        query = 'SELECT * FROM basquet_equipo WHERE id = ?';
+        query = 'SELECT * FROM basquet_equipo WHERE id = $1';
         respuesta = await qy(query, [id]);
 
-        res.status(200).json(respuesta);
+        res.status(200).json(respuesta.rows[0]);
 
     } catch (err) {
         if(err.code === undefined){
@@ -76,13 +74,17 @@ router.put('/:id', async(req, res, next)=>{
         const {nombre} = req.body;
         if(!nombre)throw new Error('no ingresaste ningun nombre');
 
-        let query = 'UPDATE basquet_equipo SET nombre = ? WHERE id = ?';
-        let respuesta = await qy(query, [nombre, id]);
+        let query = 'SELECT * FROM basquet_equipo WHERE id = $1'
+        let respuesta = await qy(query, [id]);
+        if(respuesta.rows.length === 0)throw new Error('Equipo no encontrado');
 
-        query = 'SELECT * FROM basquet_equipo WHERE id = ?'
+        query = 'UPDATE basquet_equipo SET nombre = $1 WHERE id = $2';
+        respuesta = await qy(query, [nombre, id]);
+
+        query = 'SELECT * FROM basquet_equipo WHERE id = $1'
         respuesta = await qy(query, [id]);
         
-        res.status(200).json(respuesta);
+        res.status(200).json(respuesta.rows[0]);
 
 
     } catch (err) {
@@ -104,9 +106,12 @@ router.put('/:id', async(req, res, next)=>{
 router.delete('/:id', async(req, res, next)=>{
     try {
         const { id } = req.params;
-        const query = 'DELETE FROM basquet_equipo WHERE id = ?';
-        const respuesta = await qy(query, [id]);
-        if(!respuesta.affectedRows)throw new Error('Equipo no encontrado');
+        let query = 'SELECT * FROM basquet_equipo WHERE id = $1';
+        let respuesta = await qy(query, [id]);
+        if(respuesta.rows.length === 0)throw new Error('Equipo no encontrado');
+        
+        query = 'DELETE FROM basquet_equipo WHERE id = $1';
+        respuesta = await qy(query, [id]);
 
         res.status(200).json({
             mensaje: "equipo borrado correctamente"
