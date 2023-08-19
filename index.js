@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-
+const cors = require('cors');
 require('dotenv').config()
 
 // const session = require('express-session');
@@ -16,8 +16,11 @@ require('dotenv').config()
 
 // const sessionStore = new MysqlStore(options);
 
-app.use(express.static(`${__dirname}/public`));
+app.use(cors({
+    origin: '*'
+}));
 
+app.use(express.static(`${__dirname}/public`));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
@@ -44,8 +47,6 @@ const validaciones = require('./validacion/validaciones');
 app.use('/api/equipos', validaciones.validarUsuario, equipoRuta);
 app.use('/api/jugadores', validaciones.validarUsuario, jugadoresRuta);
 app.use('/', webRutas);
-
-
 
 app.use((req, res, next)=>{
     const error = new Error('pagina no encontrada');
